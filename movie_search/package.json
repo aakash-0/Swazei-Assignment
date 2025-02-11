@@ -14,7 +14,7 @@
     "webpack": "^5.97.1"
   },
   "engines": {
-    "node": "16.x"
+    "node": "22.x"
   },
   "scripts": {
     "start": "react-scripts start",

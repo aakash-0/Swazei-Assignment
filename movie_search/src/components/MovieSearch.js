@@ -1,28 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchMovies,
-  setSearchQuery,
-  setCurrentPage,
-} from "../redux/slices/movieSlice";
+import { fetchMovies, setCurrentPage } from "../redux/slices/movieSlice";
 import "../styles/MovieSearch.css";
 
 const MovieSearch = () => {
   const dispatch = useDispatch();
-  const { movies, loading, error, searchQuery, currentPage, totalPages } =
-    useSelector((state) => state.movies);
-  const [query, setQuery] = useState("");
+  const { movies, loading, error, currentPage, totalPages } = useSelector(
+    (state) => state.movies
+  );
+  const [query, setQuery] = useState("Avengers");
+
+  useEffect(() => {
+    dispatch(fetchMovies({ search: query, page: 1 }));
+  }, []);
 
   const handleSearch = () => {
     if (query.trim() !== "") {
-      dispatch(setSearchQuery(query));
+      dispatch(setCurrentPage(1));
       dispatch(fetchMovies({ search: query, page: 1 }));
     }
   };
 
   const handlePageChange = (newPage) => {
     dispatch(setCurrentPage(newPage));
-    dispatch(fetchMovies({ search: searchQuery, page: newPage }));
+    dispatch(fetchMovies({ search: query, page: newPage }));
   };
 
   const renderPageNumbers = () => {

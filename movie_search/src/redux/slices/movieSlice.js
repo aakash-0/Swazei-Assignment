@@ -6,7 +6,6 @@ export const fetchMovies = createAsyncThunk(
   async ({ search, page }, { rejectWithValue }) => {
     try {
       const response = await fetchMoviesFromApi(search, page);
-      console.log(response);
       if (response) {
         return {
           movies: response.results,
